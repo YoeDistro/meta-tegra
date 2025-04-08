@@ -15,6 +15,14 @@ SRCBRANCH = "main"
 SRCREV = "d0513c89f8850006a631ee36289d19ab2528dc80"
 PV = "36.4.0+git"
 
+SRC_URI += " \
+    file://0001-nvidia-drm-Set-FOP_UNSIGNED_OFFSET-for-nv_drm_fops.f.patch;patchdir=nvdisplay \
+    file://0001-gpu-drm-tegra-Fix-support-for-Linux-v6.12.patch;patchdir=nvidia-oot \
+    file://0001-gpu-host1x-Memory-context-stealing.patch;patchdir=nvidia-oot \
+    file://0002-gpu-host1x-When-out-of-memory-contexts-wait-for-free.patch;patchdir=nvidia-oot \
+    file://0003-gpu-host1x-Set-up-device-DMA-parameters.patch;patchdir=nvidia-oot \
+"
+
 COMPATIBLE_MACHINE = "(tegra)"
 
 S = "${WORKDIR}/git"
