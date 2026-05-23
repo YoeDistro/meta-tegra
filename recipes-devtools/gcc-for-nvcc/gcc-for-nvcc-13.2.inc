@@ -116,5 +116,7 @@ EXTRA_OECONF_PATHS = "\
     --with-build-sysroot=${STAGING_DIR_TARGET} \
 "
 
+CXX:append = " -std=gnu++17"
+
 CVE_STATUS[CVE-2021-37322] = "cpe-incorrect: Is a binutils 2.26 issue, not gcc"
 CXX:append = " -std=gnu++17"
