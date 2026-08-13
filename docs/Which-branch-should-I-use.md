@@ -12,7 +12,7 @@ For Jetson Linux (L4T) releases:
 * branches corresponding to long-term support (LTS) OE-Core release branches are kept up-to-date with the Jetson Linux releases. When there is a significant Jetson Linux upgrade, an additional LTS branch is created for the older release series.
 
 Active branches:
-* **master** - never stable, [L4T R39.2.0/JetPack 7.2](release-notes/JetPack-7.2-L4T-R39.2.0-Notes.md) for AGX Orin/Orin NX/Orin Nano/AGX Thor
+* **master** - never stable, [L4T R39.2.1/JetPack 7.2.1](release-notes/JetPack-7.2.1-L4T-R39.2.1-Notes.md) for AGX Orin/Orin NX/Orin Nano/AGX Thor
 * **wrynose** - [L4T R39.2.0/JetPack 7.2](release-notes/JetPack-7.2-L4T-R39.2.0-Notes.md) for AGX Orin/Orin NX/Orin Nano/AGX Thor
 * **scarthgap** - [L4T R36.5.2/JetPack 6.2.3](release-notes/JetPack-6.2.3-L4T-R36.5.2-Notes.md) for AGX Orin/Orin NX/Orin Nano (will stay on R36.x/JetPack 6.x)
 
