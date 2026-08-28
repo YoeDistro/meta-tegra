@@ -1,0 +1,75 @@
+From 91b44c12d84f72acfdfe525cbfb15107b632c0ba Mon Sep 17 00:00:00 2001
+From: Ilies CHERGUI <ichergui@nvidia.com>
+Date: Fri, 28 Aug 2026 15:09:46 -0700
+Subject: [PATCH] xtest: pkcs11: Fix build against OpenSSL 4.0
+
+OpenSSL 4.0 changed X509_get_subject_name() and X509_get_issuer_name()
+to return a const X509_NAME *, so storing the result in a non-const
+X509_NAME * is now an error:
+
+  pkcs11_1000.c:7851:27: error: assignment discards 'const' qualifier from
+    pointer target type [-Werror=discarded-qualifiers]
+   7851 |         x509_subject_name = X509_get_subject_name(x509_cert);
+        |                           ^
+  pkcs11_1000.c:7869:26: error: assignment discards 'const' qualifier from
+    pointer target type [-Werror=discarded-qualifiers]
+   7869 |         x509_issuer_name = X509_get_issuer_name(x509_cert);
+        |                          ^
+
+Unconditionally declaring both names const is not an option: they are
+passed to i2d_X509_NAME(), which takes a non-const X509_NAME * before
+OpenSSL 3.0, and host/xtest/Makefile builds with
+OPENSSL_API_COMPAT=10100, i.e. the OpenSSL 1.1.x API still has to work.
+
+Introduce XTEST_X509_NAME, which follows the getters: X509_NAME before
+OpenSSL 4.0 and const X509_NAME from 4.0 on. Pre-4.0 builds keep exactly
+the types they have today, and 4.0 builds no longer discard the
+qualifier. Nothing casts away constness.
+
+Upstream-Status: Pending
+
+Signed-off-by: Ilies CHERGUI <ichergui@nvidia.com>
+---
+ host/xtest/pkcs11_1000.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/host/xtest/pkcs11_1000.c b/host/xtest/pkcs11_1000.c
+index 6ff81db..9fca58e 100644
+--- a/host/xtest/pkcs11_1000.c
++++ b/host/xtest/pkcs11_1000.c
+@@ -7666,6 +7666,19 @@ ADBG_CASE_DEFINE(pkcs11, 1023, xtest_pkcs11_test_1023,
+ 		 "PKCS11: RSA OAEP key generation and crypto operations");
+ 
+ #ifdef OPENSSL_FOUND
++/*
++ * X509_get_subject_name() and X509_get_issuer_name() return a
++ * const X509_NAME * since OpenSSL 4.0 and a plain X509_NAME * before that.
++ * xtest builds with OPENSSL_API_COMPAT=10100, so follow the getters instead
++ * of hardcoding one qualification for every version: i2d_X509_NAME(), which
++ * both results are passed to, accepts a non-const pointer in all versions.
++ */
++#if OPENSSL_VERSION_NUMBER < 0x40000000L
++#define XTEST_X509_NAME X509_NAME
++#else
++#define XTEST_X509_NAME const X509_NAME
++#endif
++
+ static const char x509_example_root_ca[] =
+ 	"-----BEGIN CERTIFICATE-----\n"
+ 	"MIICDTCCAZOgAwIBAgIBATAKBggqhkjOPQQDAzA+MQswCQYDVQQGEwJGSTEVMBMG\n"
+@@ -7697,10 +7710,10 @@ static void xtest_pkcs11_test_1024(ADBG_Case_t *c)
+ 	X509 *x509_cert = NULL;
+ 	uint8_t *x509_cert_der = NULL;
+ 	int x509_cert_der_size = 0;
+-	X509_NAME *x509_subject_name = NULL;
++	XTEST_X509_NAME *x509_subject_name = NULL;
+ 	uint8_t *x509_subject_name_der = NULL;
+ 	int x509_subject_name_der_size = 0;
+-	X509_NAME *x509_issuer_name = NULL;
++	XTEST_X509_NAME *x509_issuer_name = NULL;
+ 	uint8_t *x509_issuer_name_der = NULL;
+ 	int x509_issuer_name_der_size = 0;
+ 	ASN1_INTEGER *x509_serial_number = NULL;
+-- 
+2.43.0
+

@@ -12,6 +12,7 @@ TEGRA_SRC_SUBARCHIVE_OPTS = "--strip-components=1 optee/optee_test"
 SRC_URI:append = "\
     file://0001-xtest-Fix-GCC-15-build-errors.patch \
     file://0002-build-tpm_log_test-TA-when-CFG_CORE_TPM_EVENT_LOG-is-set.patch \
+    file://0003-xtest-pkcs11_1000-Fix-build-with-OpenSSL-4.0.patch \
 "
 
 DEPENDS += "optee-os-tadevkit optee-client openssl"
