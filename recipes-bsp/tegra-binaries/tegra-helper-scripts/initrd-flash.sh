@@ -29,6 +29,7 @@ Options:
   -k|--partition NAME   Write only the specified partition (T264 only)
   --qspi-only           Write only the QSPI flash (boot firmware)
   --usb-instance        USB instance of Jetson device
+  --no-bmap             Do not use bmaptool for writing data (T234 only)
 
 Options passed through to flash helper:
   -u                    PKC key file for signing
@@ -65,10 +66,11 @@ qspi_only=0
 partition_name=
 early_final_status=0
 erase_nvme=0
+ignore_bmap=0
 check_usb_instance="${TEGRAFLASH_CHECK_USB_INSTANCE:-no}"
 uniflash_flags=""
 
-ARGS=$(getopt -n $(basename "$0") -l "usb-instance:,help,skip-bootloader,external-only,qspi-only,partition:,debug,erase-nvme" -o "u:v:k:hD" -- "$@")
+ARGS=$(getopt -n $(basename "$0") -l "usb-instance:,help,skip-bootloader,external-only,qspi-only,partition:,debug,erase-nvme,no-bmap" -o "u:v:k:hD" -- "$@")
 if [ $? -ne 0 ]; then
     usage >&2
     exit 1
@@ -101,6 +103,10 @@ while true; do
         --erase-nvme)
             erase_nvme=1
             uniflash_flags="$uniflash_flags --clean"
+            shift
+            ;;
+        --no-bmap)
+            ignore_bmap=1
             shift
             ;;
         -u)
@@ -471,6 +477,9 @@ write_to_device_t234() {
     if [ -z "$dev" ]; then
         echo "ERR: could not find $devname" >&2
         return 1
+    fi
+    if [ $ignore_bmap -eq 1 ]; then
+        opts="$opts --no-bmap"
     fi
     if [ -e external-secureflash.xml ]; then
         rewritefiles="external-secureflash.xml,$rewritefiles"
