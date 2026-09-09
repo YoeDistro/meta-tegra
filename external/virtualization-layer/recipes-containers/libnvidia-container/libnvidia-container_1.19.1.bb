@@ -102,3 +102,5 @@ FILES:${PN}-staticdev = "${libdir}/*.a ${base_libdir}/*.a ${libdir}/${BPN}/*.a"
 INSANE_SKIP:${PN} = "already-stripped ldflags"
 RDEPENDS:${PN}:append:tegra = " ldconfig tegra-libraries-cuda"
 PACKAGE_ARCH:tegra = "${TEGRA_PKGARCH}"
+
+CVE_PRODUCT = "nvidia:nvidia_container_toolkit"
