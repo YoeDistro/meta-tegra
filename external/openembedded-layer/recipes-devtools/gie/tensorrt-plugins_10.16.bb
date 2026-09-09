@@ -55,3 +55,5 @@ do_install:append() {
 }
 
 RDEPENDS:${PN} += "cudnn libcublas"
+
+CVE_PRODUCT = "nvidia:tensorrt"
