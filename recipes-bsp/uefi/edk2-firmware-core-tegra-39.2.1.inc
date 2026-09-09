@@ -23,3 +23,6 @@ python() {
     new_postfuncs = [f for f in patch_postfuncs if f != 'do_qa_patch']
     d.setVarFlag('do_patch', 'postfuncs', ' '.join(new_postfuncs))
 }
+
+CVE_PRODUCT = "tianocore:edk2"
+CVE_VERSION = "202505"
