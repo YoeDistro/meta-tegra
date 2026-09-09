@@ -26,3 +26,36 @@ python() {
 
 CVE_PRODUCT = "tianocore:edk2"
 CVE_VERSION = "202505"
+
+CVE_STATUS_GROUPS += "CVE_STATUS_EDK2_FIXED_UPSTREAM CVE_STATUS_EDK2_FIXED_INTREE CVE_STATUS_EDK2_DATE_BOUND CVE_STATUS_EDK2_X86"
+CVE_STATUS_EDK2_FIXED_UPSTREAM = "\
+    CVE-2024-1298 \
+    CVE-2024-38796 \
+    CVE-2024-38797 \
+    CVE-2024-38805 \
+    CVE-2025-2295 \
+    CVE-2025-2296 \
+"
+CVE_STATUS_EDK2_FIXED_INTREE = "\
+    CVE-2014-4859 \
+    CVE-2014-4860 \
+    CVE-2014-8271 \
+    CVE-2019-14553 \
+    CVE-2019-14559 \
+    CVE-2019-14562 \
+    CVE-2019-14563 \
+    CVE-2019-14575 \
+    CVE-2019-14586 \
+    CVE-2019-14587 \
+"
+CVE_STATUS_EDK2_DATE_BOUND = "\
+    CVE-2017-5731 \
+    CVE-2019-14584 \
+"
+CVE_STATUS_EDK2_X86 = "CVE-2025-3770"
+
+CVE_STATUS_EDK2_FIXED_UPSTREAM[status] = "fixed-version: CNA record bounds this below edk2-stable202505; NVD carries no CPE"
+CVE_STATUS_EDK2_FIXED_INTREE[status] = "fixed-version: fix verified present in this source; neither NVD nor the CNA record carries a usable range"
+CVE_STATUS_EDK2_DATE_BOUND[status] = "fixed-version: NVD bounds these with a release date, 2017-11-07 and 2020-10-21, which no comparison can apply to the 202505 tag"
+CVE_STATUS_EDK2_X86[status] = "not-applicable-platform: x86-only UefiCpuPkg SMM code, which AArch64 Tegra does not build"
+CVE_STATUS[CVE-2024-38798] = "vulnerable-investigating: fixed upstream in edk2-stable202511, which this 202505-based branch has not merged"
