@@ -56,3 +56,6 @@ INSANE_SKIP:${PN} = "ldflags file-rdeps dev-so"
 INSANE_SKIP:${PN}-collectx = "ldflags file-rdeps dev-so"
 INSANE_SKIP:${PN}-qdstrmimporter = "ldflags file-rdeps dev-so"
 PACKAGE_ARCH = "${TEGRA_PKGARCH}"
+
+CVE_PRODUCT = "nvidia:nsight_systems"
+CVE_VERSION = "${BASE_VERSION}"
