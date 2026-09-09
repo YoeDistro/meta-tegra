@@ -423,3 +423,6 @@ python oot_update_rprovides() {
             d.setVar('RDEPENDS:' + oot_pkg, newdepstr)
 }
 PACKAGESPLITFUNCS += "oot_update_rprovides"
+
+CVE_PRODUCT = "nvidia:jetson_linux"
+CVE_VERSION = "${L4T_VERSION}"
