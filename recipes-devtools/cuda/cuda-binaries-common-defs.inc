@@ -21,3 +21,6 @@ def cuda_deb_pkg_arch(d):
 INHIBIT_PACKAGE_STRIP = "1"
 INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
 INHIBIT_SYSROOT_STRIP = "1"
+
+CVE_PRODUCT = "nvidia:cuda_toolkit"
+CVE_VERSION = "${CUDA_VERSION}"
