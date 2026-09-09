@@ -51,3 +51,6 @@ INSANE_SKIP:append:libc-musl = " file-rdeps"
 RDEPENDS:${PN}:append:libc-musl = " gcompat"
 
 PACKAGE_ARCH = "${L4T_BSP_PKGARCH}"
+
+CVE_PRODUCT = "nvidia:jetson_linux"
+CVE_VERSION = "${L4T_VERSION}"

@@ -26,3 +26,6 @@ COMPATIBLE_MACHINE = "tegra"
 do_preconfigure() {
     :
 }
+
+CVE_PRODUCT = "nvidia:jetson_linux"
+CVE_VERSION = "${L4T_VERSION}"
