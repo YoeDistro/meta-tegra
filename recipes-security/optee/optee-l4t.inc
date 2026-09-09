@@ -5,8 +5,6 @@ TEGRA_SRC_SUBARCHIVE = "Linux_for_Tegra/source/nvidia-jetson-optee-source.tbz2"
 inherit l4t_bsp python3native
 require recipes-bsp/tegra-sources/tegra-sources-${L4T_VERSION}.inc
 
-CVE_PRODUCT = "linaro:op-tee op-tee:op-tee_os"
-
 DEPENDS = "python3-pyelftools-native python3-cryptography-native"
 DEPENDS:append:tegra234 = " edk2-nvidia-standalone-mm"
 # python3-cryptography needs the legacy provider, so set OPENSSL_MODULES to the
@@ -14,6 +12,8 @@ DEPENDS:append:tegra234 = " edk2-nvidia-standalone-mm"
 export OPENSSL_MODULES = "${STAGING_LIBDIR_NATIVE}/ossl-modules"
 
 TOOLCHAIN = "gcc"
+
+CVE_VERSION = "${@d.getVar('PV').split('-l4t-')[0]}"
 
 OPTEE_NV_PLATFORM ?= ""
 OPTEE_NV_PLATFORM:tegra234 = "t234"
