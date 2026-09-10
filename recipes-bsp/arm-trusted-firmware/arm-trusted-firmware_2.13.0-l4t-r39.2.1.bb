@@ -19,10 +19,11 @@ B = "${WORKDIR}/build"
 
 COMPATIBLE_MACHINE = "(tegra234)"
 
-CVE_PRODUCT = "arm:arm-trusted-firmware \
+CVE_PRODUCT = "trustedfirmware:trusted_firmware-a \
                arm:trusted_firmware-a \
-               arm:arm_trusted_firmware \
-               arm_trusted_firmware_project:arm_trusted_firmware"
+               arm:arm-trusted-firmware \
+               arm:arm_trusted_firmware"
+CVE_VERSION = "${@d.getVar('PV').split('-l4t-')[0]}"
 
 PACKAGECONFIG ??= "optee"
 PACKAGECONFIG[trusty] = "SPD=trusty"
