@@ -21,6 +21,8 @@ B = "${WORKDIR}/build"
 
 DEPENDS = "gn-native ninja-native bison-native bc-native dtc-native openssl-native lld-native l4t-atf-tools-native libcxx"
 
+CVE_VERSION = "${@d.getVar('PV').split('-l4t-')[0]}"
+
 COMPATIBLE_MACHINE = "(tegra264)"
 TOOLCHAIN_NATIVE = "clang"
 
