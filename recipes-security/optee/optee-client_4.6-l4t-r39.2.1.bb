@@ -59,3 +59,8 @@ INITSCRIPT_PARAMS:${PN} = "start 10 1 2 3 4 5 . stop 90 0 6 ."
 CVE_PRODUCT = "linaro:op-tee trustedfirmware:op-tee"
 
 CVE_STATUS[CVE-2021-36133] = "not-applicable-platform: applies to the NXP i.MX CSU driver, not Tegra"
+CVE_STATUS[CVE-2026-40290] = "not-applicable-config: requires CFG_SECURE_PARTITION=y with S-EL0 SPs (CFG_CORE_SEL1_SPMC); plat-tegra/conf.mk forces CFG_CORE_SEL2_SPMC instead"
+CVE_STATUS[CVE-2026-45702] = "not-applicable-config: same CFG_CORE_SEL1_SPMC/CFG_SECURE_PARTITION gate as CVE-2026-40290; Tegra uses CFG_CORE_SEL2_SPMC"
+CVE_STATUS[CVE-2026-41514] = "not-applicable-platform: requires the Hisilicon HPRE crypto driver (CFG_HISILICON_ACC_V3), not built for Tegra"
+CVE_STATUS[CVE-2026-41515] = "not-applicable-platform: requires the NXP CAAM crypto driver, not built for Tegra"
+CVE_STATUS[CVE-2026-41516] = "not-applicable-platform: requires the Hisilicon HPRE crypto driver (CFG_HISILICON_ACC_V3), not built for Tegra"
