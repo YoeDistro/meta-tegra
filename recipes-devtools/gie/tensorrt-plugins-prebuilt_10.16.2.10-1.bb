@@ -31,17 +31,7 @@ REQUIRED_DISTRO_FEATURES = "opengl"
 
 LIC_FILES_CHKSUM = "file://usr/include/aarch64-linux-gnu/NvInferPlugin.h;endline=16;md5=cac95541e748626c31067a3f6573562f"
 
-def extract_basever(d):
-    ver = d.getVar('PV').split('-')[0]
-    components = ver.split('.')
-    return '.'.join(components[:3])
-
-def extract_majver(d):
-    ver = d.getVar('PV').split('-')[0]
-    return ver.split('.')[0]
-
-BASEVER = "${@extract_basever(d)}"
-MAJVER = "${@extract_majver(d)}"
+require tensorrt-version.inc
 
 S = "${UNPACKDIR}/tensorrt"
 
