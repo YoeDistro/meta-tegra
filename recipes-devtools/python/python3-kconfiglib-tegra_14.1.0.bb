@@ -20,6 +20,6 @@ RDEPENDS:${PN} += " \
 "
 
 python () {
-    if 'openembedded-layer' in d.getVar('BBFILE_COLLECTIONS').split():
+    if d.getVar('LAYERDIR_meta-oe'):
         raise bb.parse.SkipRecipe("meta-oe layer present, recipe not required")
 }
